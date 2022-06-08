@@ -5,3 +5,4 @@ def validate_date(date_text):
         return True
     except ValueError:
         return False
+    

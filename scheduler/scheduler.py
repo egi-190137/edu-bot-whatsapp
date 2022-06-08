@@ -29,7 +29,7 @@ creds= ServiceAccountCredentials.from_json_keyfile_name("credentials.json",s)
 client=gspread.authorize(creds)
 
 #sheet = client.open("test")
-worksheet = client.open("Reminders").sheet1
+worksheet = client.open("chatbot_reminders").sheet1
 list_of_lists = worksheet.get_all_values()
 print(list_of_lists)
 for row in list_of_lists:

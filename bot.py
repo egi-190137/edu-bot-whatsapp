@@ -16,44 +16,82 @@ list_guru = [
 
 @app.route('/mybot', methods = ['POST'])
 
-def mybot():
+def mybot(input_type="command"):
     incoming_msg = request.values.get('Body', '').lower()
-    words = incoming_msg.split('@')
+    words = incoming_msg.split()
+
     resp = MessagingResponse()
     msg = resp.message()
     responded = False
 
-    # if 'hi' in incoming_msg:
-    msg.body("Halo, Aku edu-bot\n\n"\
-        "Ada yang bisa saya bantu?\n"\
-        "- Buat quote\n"\
-        "- Buat pengingat\n"\
-        "- Tanya guru\n"\
-        "- Buat pernyataan untuk guru")
-    
-    input_type = "command"
-    responded = True
+    if 'hi' in incoming_msg:
+        msg.body("""
+            Halo, Aku edu-bot
+            Ada yang bisa saya bantu?
+            - Buat quote
+            - Buat pengingat
+            - Tanya guru
+            - Buat pernyataan untuk guru"""
+        )
+        input_type = "command"
+        responded = True
 
     if 'quote' in incoming_msg:
         r = requests.get('http://api.quotable.io/random')
-        
         if r.status_code == 200:
             data  = r.json()
             quote = f'{data["content"]} ({data["author"]})'
         else:
             quote = 'Sorry I am unable to retrieve quote at this time'
-        
         msg.body(quote)
         responded = True
-
+        
+    # Code untuk membuat pengingat
     if 'pengingat' in incoming_msg:
-        reminder_string = "Masukkan tanggal sesuai format berikut.\n"\
-        "dd/mm/yyyy"
-        msg.body(reminder_string)
 
-        input_type = "tanggal"
+        msg.body(
+            "Masukkan tanggal!!\n\n"\
+            "*Format : *\n"\
+            "\"Tanggal dd/mm/yyyy\""
+        )
+
+        responded = True
+        
+    if words[0] == "tanggal":
+        # Cek apakah inputan sesuai dengan format
+        # ????????
+        # Cek apakah inputan sesuai dengan format
+        
+        set_reminder_date(words[1])
+        
+        msg.body(
+            "Please enter the time in the following format only.\n\n"\
+            "*Format : *\n"\
+            "\"Jam 23:10\""
+        )
+
+        responded = True
+    
+    elif words[0] == "jam":
+        set_reminder_time(words[1])
+        
+        msg.body(
+            "Masukkan pesan pengingat.\n\n"\
+            "*Format : \n*"\
+            "\"Pesan [Pesan anda]\""
+        )
+
         responded = True
 
+    elif words[0] == "pesan":
+    
+        set_reminder_body(" ".join(words[1:]))
+        
+        msg.body(
+            "Pengingat anda berhasil dibuat!"
+        )
+        responded = True
+    
     if 'who are you' in incoming_msg:
         msg.body('Hi i am your bot')
         responded = True
@@ -69,19 +107,6 @@ def mybot():
             "*Tanya @* pertanyaan...")
         responded = True
 
-    if input_type == "tanggal":
-        # Cek apakah inputan sesuai dengan format
-        # ????????
-        # Cek apakah inputan sesuai dengan format
-        
-        # JIka sesuai jalankan kode berikut
-        set_reminder_date(input_string)
-        
-        reply="Please enter the time in the following format only.\n\n"\
-            "_23:10_"
-        msg.body(reply)
-
-        responded = True
 
 
     # elif len(words) > 1:
