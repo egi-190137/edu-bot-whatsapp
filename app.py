@@ -132,13 +132,12 @@ def mybot():
 
     if 'tanya' in words:
         set_name(" ".join(words[1:]))
-        msg.body(f'''{msg_info}
-        Assalamu'alaikum Wr. Wb
-        Saya {msg_info['nama']} absen {msg_info['absen']} dari kelas {msg_info['kelas']}. Saya ingin {msg_info['tujuan']}. {msg_info['pertanyaan']}.
+        msg.body(f'{msg_info}')
+        # Assalamu'alaikum Wr. Wb
+        # Saya {msg_info['nama']} absen {msg_info['absen']} dari kelas {msg_info['kelas']}. Saya ingin {msg_info['tujuan']}. {msg_info['pertanyaan']}.
 
-        Terima Kasih sebelumnya pak
-        '''
-        )
+        # Terima Kasih sebelumnya pak
+        # '''
         responded = True
 
     if 'who are you' in incoming_msg:
