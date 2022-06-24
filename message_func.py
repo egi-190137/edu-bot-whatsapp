@@ -1,7 +1,7 @@
 msg_info = {}
 
-def set_name(name):
-    msg_info['name'] = name
+def set_name(nama):
+    msg_info['nama'] = name
     return 0
 
 def set_absen(absen):
