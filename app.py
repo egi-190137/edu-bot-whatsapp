@@ -1,6 +1,8 @@
+import os
 from flask import Flask, request
 import requests
 from twilio.twiml.messaging_response import MessagingResponse
+from twilio.rest import Client
 
 from dateutil.parser import parse
 from validation_func import *
@@ -17,6 +19,10 @@ list_guru = [
     "Pak Abidin"
 ]
 
+account_sid = os.environ['AC8aa68986866d8875f1db05e0af2dd891']
+auth_token = os.environ['599f1ea5da6a928beba97a6446193701']
+client = Client(account_sid, auth_token)
+
 @app.route('/mybot', methods = ['POST'])
 
 def mybot():
@@ -26,6 +32,14 @@ def mybot():
     resp = MessagingResponse()
     msg = resp.message()
     responded = False
+
+    message = client.messages.create(
+        body='This is a message that I want to send over WhatsApp with Twilio!',
+        from_='whatsapp:+14155238886',
+        to='whatsapp:+6283856854057'
+    )
+
+    msg.body(message)
 
     if 'hi' in incoming_msg:
         msg.body(
@@ -97,47 +111,51 @@ def mybot():
     if 'nama' in words:
         set_name(" ".join(words[1:]))
         msg.body(
-            "Masukkan absen:"\
-            "*Format :*"\
-            "Absen [absen anda]"
+            """Masukkan absen:
+            
+            *Format :*
+            Absen [absen anda]"""
         )
         responded = True
     
     if 'absen' in words:
         set_absen(words[1])
         msg.body(
-            "Masukkan kelas anda:"\
-            "*Format :*"\
-            "Kelas [kelas anda]"
+            """Masukkan kelas anda:
+            
+            *Format :*
+            Kelas [kelas anda]"""
         )
         responded = True
 
     if 'kelas' in words:
         set_kelas(" ".join(words[1:]))
         msg.body(
-            "Masukkan tujuan anda:"\
-            "*Format :*"\
-            "Tujuan [nama anda]"
+            """Masukkan tujuan anda:
+            
+            *Format :*
+            Tujuan [nama anda]"""
         )
         responded = True
 
     if 'tujuan' in words:
         set_tujuan(" ".join(words[1:]))
         msg.body(
-            "Masukkan pertanyaan anda:"\
-            "*Format :*"\
-            "Tanya [nama anda]"
+            """Masukkan pertanyaan anda:
+            
+            *Format :*
+            Tanya [nama anda]"""
         )
         responded = True
 
     if 'tanya' in words:
         set_pertanyaan(" ".join(words[1:]))
-        msg.body(f'{msg_info}')
-        # Assalamu'alaikum Wr. Wb
-        # Saya {msg_info['nama']} absen {msg_info['absen']} dari kelas {msg_info['kelas']}. Saya ingin {msg_info['tujuan']}. {msg_info['pertanyaan']}.
-
-        # Terima Kasih sebelumnya pak
-        # '''
+        msg.body(
+            f"""Assalamu'alaikum Wr. Wb
+            Saya {msg_info['nama']} absen {msg_info['absen']} dari kelas {msg_info['kelas']}. Saya ingin {msg_info['tujuan']}. {msg_info['pertanyaan']}.
+            
+            Terima Kasih sebelumnya pak"""
+        )
         responded = True
 
     if 'who are you' in incoming_msg:
