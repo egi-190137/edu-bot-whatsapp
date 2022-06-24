@@ -96,7 +96,7 @@ def mybot():
     
     if 'nama' in words:
         set_name(" ".join(words[1:]))
-        msg_body(
+        msg.body(
             "Masukkan absen:"\
             "*Format :*"\
             "Absen [absen anda]"
@@ -105,7 +105,7 @@ def mybot():
     
     if 'absen' in words:
         set_absen(words[1])
-        msg_body(
+        msg.body(
             "Masukkan kelas anda:"\
             "*Format :*"\
             "Kelas [kelas anda]"
@@ -114,7 +114,7 @@ def mybot():
 
     if 'kelas' in words:
         set_kelas(" ".join(words[1:]))
-        msg_body(
+        msg.body(
             "Masukkan tujuan anda:"\
             "*Format :*"\
             "Tujuan [nama anda]"
@@ -123,7 +123,7 @@ def mybot():
 
     if 'tujuan' in words:
         set_tujuan(" ".join(words[1:]))
-        msg_body(
+        msg.body(
             "Masukkan pertanyaan anda:"\
             "*Format :*"\
             "Tanya [nama anda]"
@@ -132,7 +132,7 @@ def mybot():
 
     if 'tanya' in words:
         set_name(" ".join(words[1:]))
-        msg_body(f'''
+        msg.body(f'''
         Assalamu'alaikum Wr. Wb
         Saya {msg_info['nama']} absen {msg_info['absen']} dari kelas {msg_info['kelas']}. Saya ingin {msg_info['tujuan']}. {msg_info['pertanyaan']}.
 
