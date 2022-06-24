@@ -1,10 +1,13 @@
 from flask import Flask, request
 import requests
 from twilio.twiml.messaging_response import MessagingResponse
-from gsheet_func import *
 
 from dateutil.parser import parse
 from validation_func import *
+
+from gsheet_func import *
+from message_func import *
+
 app = Flask(__name__)
 
 list_guru = [
@@ -25,13 +28,12 @@ def mybot():
     responded = False
 
     if 'hi' in incoming_msg:
-        msg.body("""
-        Halo, Aku edu-bot
-        Ada yang bisa saya bantu?
-        - Buat quote
-        - Buat pengingat
-        - Tanya guru
-        - Buat pernyataan untuk guru"""
+        msg.body(
+            "Halo, Aku edu-bot"\
+            "Ada yang bisa saya bantu?"\
+            "- Buat pengingat"\
+            "- Tanya guru"\
+            "- Buat pesan untuk guru"
         )
         responded = True
         
@@ -55,26 +57,26 @@ def mybot():
         
         msg.body(
             "Please enter the time in the following format only.\n\n"\
-            "*Format : *\n"\
+            "*Format :* \n"\
             "\"Jam 23:10\""
         )
 
         responded = True
     
-    elif words[0] == "jam":
+    if words[0] == "jam":
         set_reminder_time(words[1])
         
         msg.body(
             f"{words[1]}"\
             f"{incoming_msg}"\
             "Masukkan pesan pengingat.\n\n"\
-            "*Format : \n*"\
+            "*Format :*\n"\
             "\"Pesan [Pesan anda]\""
         )
 
         responded = True
 
-    elif words[0] == "pesan":
+    if words[0] == "pesan":
     
         set_reminder_body(" ".join(words[1:]))
         
@@ -83,6 +85,62 @@ def mybot():
         )
         responded = True
     
+    # CODE untuk buat pernyataan
+    if 'buat' and 'pesan' in words:
+        msg.body(
+            "Masukkan nama:"\
+            "*Format :*"\
+            "Nama [nama anda]"
+        )
+        responded = True
+    
+    if 'nama' in words:
+        set_name(" ".join(words[1:]))
+        msg_body(
+            "Masukkan absen:"\
+            "*Format :*"\
+            "Absen [absen anda]"
+        )
+        responded = True
+    
+    if 'absen' in words:
+        set_absen(words[1])
+        msg_body(
+            "Masukkan kelas anda:"\
+            "*Format :*"\
+            "Kelas [kelas anda]"
+        )
+        responded = True
+
+    if 'kelas' in words:
+        set_kelas(" ".join(words[1:]))
+        msg_body(
+            "Masukkan tujuan anda:"\
+            "*Format :*"\
+            "Tujuan [nama anda]"
+        )
+        responded = True
+
+    if 'tujuan' in words:
+        set_tujuan(" ".join(words[1:]))
+        msg_body(
+            "Masukkan pertanyaan anda:"\
+            "*Format :*"\
+            "Tanya [nama anda]"
+        )
+        responded = True
+
+    if 'tanya' in words:
+        set_name(" ".join(words[1:]))
+        msg_body(f'''
+        Assalamu'alaikum Wr. Wb
+        Saya {msg_info['nama']} absen {msg_info['absen']} dari kelas {msg_info['kelas']}. Saya ingin {msg_info['tujuan']}. {msg_info['pertanyaan']}.
+
+        Terima Kasih sebelumnya pak
+        '''
+        )
+        responded = True
+
     if 'who are you' in incoming_msg:
         msg.body('Hi i am your bot')
         responded = True
