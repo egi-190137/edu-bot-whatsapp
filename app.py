@@ -16,7 +16,7 @@ list_guru = [
 
 @app.route('/mybot', methods = ['POST'])
 
-def mybot(input_type="command"):
+def mybot():
     incoming_msg = request.values.get('Body', '').lower()
     words = incoming_msg.split()
 
@@ -33,7 +33,6 @@ def mybot(input_type="command"):
         - Tanya guru
         - Buat pernyataan untuk guru"""
         )
-        input_type = "command"
         responded = True
         
     # Code untuk membuat pengingat
@@ -66,6 +65,8 @@ def mybot(input_type="command"):
         set_reminder_time(words[1])
         
         msg.body(
+            f"{words[1]}"\
+            f"{incoming_msg}"\
             "Masukkan pesan pengingat.\n\n"\
             "*Format : \n*"\
             "\"Pesan [Pesan anda]\""
