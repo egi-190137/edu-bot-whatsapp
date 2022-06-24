@@ -26,24 +26,14 @@ def mybot(input_type="command"):
 
     if 'hi' in incoming_msg:
         msg.body("""
-            Halo, Aku edu-bot
-            Ada yang bisa saya bantu?
-            - Buat quote
-            - Buat pengingat
-            - Tanya guru
-            - Buat pernyataan untuk guru"""
+        Halo, Aku edu-bot
+        Ada yang bisa saya bantu?
+        - Buat quote
+        - Buat pengingat
+        - Tanya guru
+        - Buat pernyataan untuk guru"""
         )
         input_type = "command"
-        responded = True
-
-    if 'quote' in incoming_msg:
-        r = requests.get('http://api.quotable.io/random')
-        if r.status_code == 200:
-            data  = r.json()
-            quote = f'{data["content"]} ({data["author"]})'
-        else:
-            quote = 'Sorry I am unable to retrieve quote at this time'
-        msg.body(quote)
         responded = True
         
     # Code untuk membuat pengingat
