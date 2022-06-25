@@ -12,12 +12,20 @@ from message_func import *
 
 app = Flask(__name__)
 
-list_guru = [
-    "Pak Zainal",
-    "Bu Ain",
-    "Bu Sri",
-    "Pak Abidin"
-]
+list_guru = {
+    'nama':[
+        'Willy',
+        'Bu Ain',
+        'Bu Sri',
+        'Pak Abidin'
+    ],
+    'nomor':[
+        '+6285732432532',
+        '+62857324325xx',
+        '+62857324325xx',
+        '+62857324325xx'
+    ]
+}
 
 client = Client(
     os.environ['TWILIO_ACCOUNT_SID'],
@@ -43,15 +51,29 @@ def mybot():
     # msg.body(message)
 
     if 'hi' in incoming_msg:
+        out_list_guru = ""
+        for (idx, guru) in enumerate(list_guru.keys()):
+            out_list_guru += f"{idx}. {guru}\n"
+
         msg.body(
-            "Halo, Aku edu-bot"\
-            "Ada yang bisa saya bantu?"\
-            "- Buat pengingat"\
-            "- Tanya guru"\
-            "- Buat pesan untuk guru"
+            f"""Halo, Aku edu-bot
+            
+            Daftar guru:
+            {out_list_guru}
+
+            Pilih salah satu guru dengan mengetikkan nama atau no pada pilihan
+            """
         )
         responded = True
-        
+    
+    if words[0] in '0123456789':
+        idx = int(words[0])
+
+        message = client.messages.create(
+            body='This is a message that I want to send over WhatsApp with Twilio!',
+            from_='whatsapp:+14155238886',
+            to=f'whatsapp:{list_guru["nomor"][idx]}'
+        )
     # Code untuk membuat pengingat
     if 'pengingat' in incoming_msg:
 
@@ -159,10 +181,6 @@ def mybot():
         )
         responded = True
 
-    if 'who are you' in incoming_msg:
-        msg.body('Hi i am your bot')
-        responded = True
-    
     if "tanya guru" in incoming_msg:
         msg.body("Pilih salah satu guru berikut:\n"\
             "\n".join(list_guru)
