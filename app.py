@@ -66,7 +66,7 @@ def mybot():
         )
         responded = True
     
-    if words[0] in '0123456789':
+    if words[0].isnumeric():
         idx = int(words[0])-1
 
         message = client.messages.create(
