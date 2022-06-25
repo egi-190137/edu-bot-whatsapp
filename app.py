@@ -34,13 +34,13 @@ def mybot():
     msg = resp.message()
     responded = False
 
-    message = client.messages.create(
-        body='This is a message that I want to send over WhatsApp with Twilio!',
-        from_='whatsapp:+14155238886',
-        to='whatsapp:+6283856854057'
-    )
+    # message = client.messages.create(
+    #     body='This is a message that I want to send over WhatsApp with Twilio!',
+    #     from_='whatsapp:+14155238886',
+    #     to='whatsapp:+6283856854057'
+    # )
 
-    msg.body(message)
+    # msg.body(message)
 
     if 'hi' in incoming_msg:
         msg.body(
