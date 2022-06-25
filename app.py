@@ -52,7 +52,7 @@ def mybot():
 
     if 'hi' in incoming_msg:
         out_list_guru = ""
-        for (idx, guru) in list_guru['nama']:
+        for (idx, guru) in enumerate(list_guru['nama']):
             out_list_guru += f"{idx}. {guru}\n"
 
         msg.body(
