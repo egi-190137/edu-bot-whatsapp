@@ -53,7 +53,7 @@ def mybot():
     if 'hi' in incoming_msg:
         out_list_guru = ""
         for (idx, guru) in enumerate(list_guru['nama']):
-            out_list_guru += f"{idx}. {guru}\n"
+            out_list_guru += f"{idx+1}. {guru}\n"
 
         msg.body(
             f"""Halo, Aku edu-bot
@@ -67,7 +67,7 @@ def mybot():
         responded = True
     
     if words[0] in '0123456789':
-        idx = int(words[0])
+        idx = int(words[0])-1
 
         message = client.messages.create(
             body='This is a message that I want to send over WhatsApp with Twilio!',
