@@ -35,8 +35,8 @@ def mybot():
 
     message = client.messages.create(
         body='This is a message that I want to send over WhatsApp with Twilio!',
-        from_='whatsapp:+19378073373',
-        to='whatsapp:+6283856854057'
+        from_='whatsapp:+6283856854057',
+        to='whatsapp:+6285732432532'
     )
 
     msg.body(message)
