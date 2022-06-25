@@ -1,3 +1,4 @@
+import os
 from flask import Flask, request
 import requests
 from twilio.twiml.messaging_response import MessagingResponse
@@ -19,8 +20,8 @@ list_guru = [
 ]
 
 client = Client(
-    'AC8aa68986866d8875f1db05e0af2dd891', 
-    '599f1ea5da6a928beba97a6446193701'
+    os.environ['TWILIO_ACCOUNT_SID'],
+    os.environ['TWILIO_AUTH_TOKEN']
 )
 
 @app.route('/mybot', methods = ['POST'])
