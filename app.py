@@ -74,6 +74,10 @@ def mybot():
             from_='whatsapp:+14155238886',
             to=f'whatsapp:{list_guru["nomor"][idx]}'
         )
+
+        msg.body(message)
+
+        responded = True
     # Code untuk membuat pengingat
     if 'pengingat' in incoming_msg:
 
