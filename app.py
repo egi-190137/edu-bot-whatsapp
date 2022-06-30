@@ -66,8 +66,8 @@ def mybot():
         )
         responded = True
     
-    if incoming_msg.isnumeric():
-        idx = int(incoming_msg)-1
+    if words[0] == 'pilih':
+        idx = int(words[1]) - 1
 
         message = client.messages.create(
             body='This is a message that I want to send over WhatsApp with Twilio!',
