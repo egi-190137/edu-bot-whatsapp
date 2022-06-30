@@ -28,8 +28,8 @@ list_guru = {
 }
 
 client = Client(
-    os.env['TWILIO_ACCOUNT_SID'],
-    os.env['TWILIO_AUTH_TOKEN']
+    os.environ['TWILIO_ACCOUNT_SID'],
+    os.environ['TWILIO_AUTH_TOKEN']
 )
 
 @app.route('/mybot', methods = ['POST'])
