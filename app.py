@@ -37,10 +37,11 @@ client = Client(
 def mybot():
     incoming_msg = request.form.get('Body')#.lower()
 
-    msg = resp.message()
-    responded = False
     resp = MessagingResponse()
+    msg = resp.message()
 
+    responded = False
+    
     if incoming_msg is None:
         msg.body("error")
 
