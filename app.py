@@ -35,12 +35,20 @@ client = Client(
 @app.route('/mybot', methods = ['POST'])
 
 def mybot():
-    incoming_msg = request.form.get('Body').lower()
-    words = incoming_msg.split()
+    incoming_msg = request.form.get('Body')#.lower()
 
-    resp = MessagingResponse()
     msg = resp.message()
     responded = False
+
+    if incoming_msg is None:
+        msg.body("error")
+
+        responded = True
+        break
+
+    words = str(incoming_msg).lower().split()
+
+    resp = MessagingResponse()
 
     # message = client.messages.create(
     #     body='This is a message that I want to send over WhatsApp with Twilio!',
