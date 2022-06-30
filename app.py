@@ -67,18 +67,18 @@ def mybot():
         responded = True
     
     if 'pilih' in incoming_msg:
-        # idx = int(words[1]) - 1
+        idx = int(words[1]) - 1
 
         msg.body(f"{incoming_msg}\n{len(words)}")
 
-        # message = client.messages.create(
-        #     body='This is a message that I want to send over WhatsApp with Twilio!',
-        #     from_='whatsapp:+14155238886',
-        #     to=f'whatsapp:{list_guru["nomor"][idx]}'
-        # )
-
+        message = client.messages.create(
+            body='This is a message that I want to send over WhatsApp with Twilio!',
+            from_='whatsapp:+14155238886',
+            to=f'whatsapp:{list_guru["nomor"][idx]}'
+        )
 
         responded = True
+
     # Code untuk membuat pengingat
     if 'pengingat' in incoming_msg:
 
