@@ -69,7 +69,7 @@ def mybot():
     if 'pilih' in incoming_msg:
         # idx = int(words[1]) - 1
 
-        msg.body(incoming_msg, "\n", len(words))
+        msg.body(f"{incoming_msg}"\n"{len(words)}"")
 
         # message = client.messages.create(
         #     body='This is a message that I want to send over WhatsApp with Twilio!',
