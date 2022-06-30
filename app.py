@@ -66,8 +66,10 @@ def mybot():
         )
         responded = True
     
-    if words[0] == 'pilih':
+    if 'pilih' in incoming_msg:
         idx = int(words[1]) - 1
+
+        msg.body(incoming_msg, "\n", len(words))
 
         message = client.messages.create(
             body='This is a message that I want to send over WhatsApp with Twilio!',
@@ -75,7 +77,6 @@ def mybot():
             to=f'whatsapp:{list_guru["nomor"][idx]}'
         )
 
-        msg.body(message)
 
         responded = True
     # Code untuk membuat pengingat
