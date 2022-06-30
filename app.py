@@ -28,8 +28,8 @@ list_guru = {
 }
 
 client = Client(
-    os.environ['TWILIO_ACCOUNT_SID'],
-    os.environ['TWILIO_AUTH_TOKEN']
+    os.getenv['TWILIO_ACCOUNT_SID'],
+    os.getenv['TWILIO_AUTH_TOKEN']
 )
 
 @app.route('/mybot', methods = ['POST'])
@@ -66,8 +66,8 @@ def mybot():
         )
         responded = True
     
-    if words[0].isnumeric():
-        idx = int(words[0])-1
+    if incoming_msg.isnumeric():
+        idx = int(incoming_msg)-1
 
         message = client.messages.create(
             body='This is a message that I want to send over WhatsApp with Twilio!',
