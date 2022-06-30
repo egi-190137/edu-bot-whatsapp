@@ -245,4 +245,4 @@ def set_reminder_body(msg):
     return 0
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
