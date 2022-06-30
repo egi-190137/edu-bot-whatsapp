@@ -35,7 +35,7 @@ client = Client(
 @app.route('/mybot', methods = ['POST'])
 
 def mybot():
-    incoming_msg = request.values.get('Body', '').lower()
+    incoming_msg = request.form.get('Body').lower()
     words = incoming_msg.split()
 
     resp = MessagingResponse()
