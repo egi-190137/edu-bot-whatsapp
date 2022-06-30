@@ -90,42 +90,42 @@ def mybot():
 
         responded = True
         
-    if words[0] == "tanggal":
-        # Cek apakah inputan sesuai dengan format
-        # ????????
-        # Cek apakah inputan sesuai dengan format
+    # if words[0] == "tanggal":
+    #     # Cek apakah inputan sesuai dengan format
+    #     # ????????
+    #     # Cek apakah inputan sesuai dengan format
         
-        set_reminder_date(words[1])
+    #     set_reminder_date(words[1])
         
-        msg.body(
-            "Please enter the time in the following format only.\n\n"\
-            "*Format :* \n"\
-            "\"Jam 23:10\""
-        )
+    #     msg.body(
+    #         "Please enter the time in the following format only.\n\n"\
+    #         "*Format :* \n"\
+    #         "\"Jam 23:10\""
+    #     )
 
-        responded = True
+    #     responded = True
     
-    if words[0] == "jam":
-        set_reminder_time(words[1])
+    # if words[0] == "jam":
+    #     set_reminder_time(words[1])
         
-        msg.body(
-            f"{words[1]}"\
-            f"{incoming_msg}"\
-            "Masukkan pesan pengingat.\n\n"\
-            "*Format :*\n"\
-            "\"Pesan [Pesan anda]\""
-        )
+    #     msg.body(
+    #         f"{words[1]}"\
+    #         f"{incoming_msg}"\
+    #         "Masukkan pesan pengingat.\n\n"\
+    #         "*Format :*\n"\
+    #         "\"Pesan [Pesan anda]\""
+    #     )
 
-        responded = True
+    #     responded = True
 
-    if words[0] == "pesan":
+    # if words[0] == "pesan":
     
-        set_reminder_body(" ".join(words[1:]))
+    #     set_reminder_body(" ".join(words[1:]))
         
-        msg.body(
-            "Pengingat anda berhasil dibuat!"
-        )
-        responded = True
+    #     msg.body(
+    #         "Pengingat anda berhasil dibuat!"
+    #     )
+    #     responded = True
     
     # CODE untuk buat pernyataan
     if 'buat' and 'pesan' in words:
