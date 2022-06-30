@@ -39,16 +39,17 @@ def mybot():
 
     msg = resp.message()
     responded = False
+    resp = MessagingResponse()
 
     if incoming_msg is None:
         msg.body("error")
 
         responded = True
-        break
+        
+        return str(resp)
 
     words = str(incoming_msg).lower().split()
 
-    resp = MessagingResponse()
 
     # message = client.messages.create(
     #     body='This is a message that I want to send over WhatsApp with Twilio!',
