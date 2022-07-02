@@ -41,7 +41,7 @@ def mybot():
     msg = resp.message()
 
     responded = False
-    
+
     if incoming_msg is None:
         msg.body("error")
 
@@ -49,7 +49,8 @@ def mybot():
         
         return str(resp)
 
-    words = str(incoming_msg).lower().split()
+    incoming_msg = str(incoming_msg).lower() 
+    words = incoming_msg.split()
 
 
     # message = client.messages.create(
