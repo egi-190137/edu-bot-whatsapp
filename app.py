@@ -6,26 +6,16 @@ from twilio.rest import Client
 
 from dateutil.parser import parse
 from validation_func import *
+from pandas import read_csv
 
 from gsheet_func import *
 from message_func import *
 
 app = Flask(__name__)
 
-list_guru = {
-    'nama':[
-        'Willy',
-        'Bu Ain',
-        'Bu Sri',
-        'Pak Abidin'
-    ],
-    'nomor':[
-        '+6285732432532',
-        '+62857324325xx',
-        '+62857324325xx',
-        '+62857324325xx'
-    ]
-}
+df = read_csv('contacts.csv')
+
+list_guru = df.to_dict('list')
 
 client = Client(
     os.environ['TWILIO_ACCOUNT_SID'],
