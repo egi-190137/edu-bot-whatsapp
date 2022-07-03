@@ -1,17 +1,17 @@
 import os
 
-from zmq import Message
+# from zmq import Message
 from flask import Flask, request
-import requests
+# import requests
 from twilio.twiml.messaging_response import MessagingResponse
 from twilio.rest import Client
 
-from dateutil.parser import parse
-from validation_func import *
+# from dateutil.parser import parse
+# from validation_func import *
 from pandas import read_csv
 
-from gsheet_func import *
-from message_func import *
+# from gsheet_func import *
+# from message_func import *
 
 from MessageInfo import MessageInfo
 
