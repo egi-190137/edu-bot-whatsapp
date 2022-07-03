@@ -64,9 +64,9 @@ def mybot():
         if len(words) == 1:
             msg.body("Masukkan angka dengan benar!!!")
         elif words[1].isnumeric():      
-            addData('idx', int(words[1]) - 1)
-            
-            if idx >= len(list_guru['nama']):
+            idx = int(words[1]) - 1
+
+            if idx >= len(list_guru['nama']) and idx >= 0:
                 msg.body("Pilihan anda tidak sesuai!!!")
             else:
                 msg.body(
@@ -77,6 +77,8 @@ def mybot():
                     
                     nama [nama anda]"""
                 )
+                addData('idx', int(words[1]) - 1)
+
                 
         else:
             msg.body("Masukkan angka dengan benar!!!")
