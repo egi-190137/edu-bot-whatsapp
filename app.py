@@ -12,25 +12,16 @@ from pandas import read_csv
 
 # from gsheet_func import *
 # from message_func import *
-
-from MessageInfo import MessageInfo
+from get_message_info import *
 
 app = Flask(__name__)
 
-df = read_csv('contacts.csv')
-
-list_guru = df.to_dict('list')
+list_guru = getDictAllData('contacts.csv')
 
 client = Client(
     os.environ['TWILIO_ACCOUNT_SID'],
     os.environ['TWILIO_AUTH_TOKEN']
 )
-
-idx = None
-name = ''
-kelas = ''
-message = ''
-
 
 @app.route('/mybot', methods = ['POST'])
 
@@ -73,7 +64,7 @@ def mybot():
         if len(words) == 1:
             msg.body("Masukkan angka dengan benar!!!")
         elif words[1].isnumeric():      
-            idx = int(words[1]) - 1
+            addData('idx', int(words[1]) - 1)
             
             if idx >= len(list_guru['nama']):
                 msg.body("Pilihan anda tidak sesuai!!!")
@@ -86,7 +77,7 @@ def mybot():
                     
                     nama [nama anda]"""
                 )
-                MessageInfo.setIdx(idx)
+                
         else:
             msg.body("Masukkan angka dengan benar!!!")
 
@@ -104,7 +95,7 @@ def mybot():
                 Kelas [kelas anda]
                 """
             )
-            MessageInfo.setNama(" ".join(words[1:]).capitalize())
+            addData('nama', ' '.join(words[1:]).capitalize())
     
         responded = True
     
@@ -121,7 +112,7 @@ def mybot():
                 """
             )
 
-            MessageInfo.setKelas(" ".join(words[1:]))
+            addData('kelas', ' '.join(words[1:]).capitalize())
         
         responded = True
 
@@ -130,17 +121,22 @@ def mybot():
             msg.body("Masukkan pesan dengan benar!!!")
         
         else:
+            addData('pesan', ' '.join(words[1:]))
+
+            message_info = getDictAllData()
+            
+            idx_no_tujuan = int(message_info['idx'][-1])
             message_body = f"""
-            Dari\t: {MessageInfo.getNama()}
-            Kelas\t: {MessageInfo.getKelas()}
+            Dari\t: {message_info['nama'][-1]}
+            Kelas\t: {message_info['kelas'][-1]}
 
             Pesan:
-            {MessageInfo.getPesan()}
+            {message_info['pesan'][-1]}
             """
             message = client.messages.create(
                 body=message_body,
                 from_='whatsapp:+14155238886',
-                to=f'whatsapp:{list_guru["nomor"][MessageInfo.getIdx()]}'
+                to=f'whatsapp:{list_guru["nomor"][idx_no_tujuan]}'
             )
             msg.body("Pesan berhasil terkirim")
         
