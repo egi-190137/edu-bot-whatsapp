@@ -85,7 +85,7 @@ def mybot():
 
         responded = True
     
-    elif 'nama' in incoming_msg:
+    elif 'nama' == words[0]:
         if len(words) == 1:
             msg.body("Masukkan nama dengan benar!!!")
         else:
@@ -101,7 +101,7 @@ def mybot():
     
         responded = True
     
-    elif 'kelas' in incoming_msg:
+    elif 'kelas' == words[0]:
         if len(words) == 1:
             msg.body("Masukkan kelas dengan benar!!!")
         else:
@@ -118,7 +118,7 @@ def mybot():
         
         responded = True
 
-    elif 'pesan' in incoming_msg:
+    elif 'pesan' == words[0]:
         if len(words) == 1:
             msg.body("Masukkan pesan dengan benar!!!")
         
@@ -145,15 +145,15 @@ def mybot():
         responded = True
 
     # Code untuk membuat pengingat
-    if 'pengingat' in incoming_msg:
+    # if 'pengingat' in incoming_msg:
 
-        msg.body(
-            "Masukkan tanggal!!\n\n"\
-            "*Format :* \n"\
-            "\"Tanggal dd/mm/yyyy\""
-        )
+    #     msg.body(
+    #         "Masukkan tanggal!!\n\n"\
+    #         "*Format :* \n"\
+    #         "\"Tanggal dd/mm/yyyy\""
+    #     )
 
-        responded = True
+    #     responded = True
         
     # if words[0] == "tanggal":
     #     # Cek apakah inputan sesuai dengan format
