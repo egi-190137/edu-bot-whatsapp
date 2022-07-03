@@ -11,6 +11,8 @@ from pandas import read_csv
 from gsheet_func import *
 from message_func import *
 
+from MessageInfo import MessageInfo
+
 app = Flask(__name__)
 
 df = read_csv('contacts.csv')
@@ -189,74 +191,74 @@ def mybot():
     #     responded = True
     
     # CODE untuk buat pernyataan
-    if 'buat' and 'pesan' in words:
-        msg.body(
-            "Masukkan nama:"\
-            "*Format :*"\
-            "Nama [nama anda]"
-        )
-        responded = True
+    # if 'buat' and 'pesan' in words:
+    #     msg.body(
+    #         "Masukkan nama:"\
+    #         "*Format :*"\
+    #         "Nama [nama anda]"
+    #     )
+    #     responded = True
     
-    if 'nama' in words:
-        set_name(" ".join(words[1:]))
-        msg.body(
-            """Masukkan absen:
+    # if 'nama' in words:
+    #     set_name(" ".join(words[1:]))
+    #     msg.body(
+    #         """Masukkan absen:
             
-            *Format :*
-            Absen [absen anda]"""
-        )
-        responded = True
+    #         *Format :*
+    #         Absen [absen anda]"""
+    #     )
+    #     responded = True
     
-    if 'absen' in words:
-        set_absen(words[1])
-        msg.body(
-            """Masukkan kelas anda:
+    # if 'absen' in words:
+    #     set_absen(words[1])
+    #     msg.body(
+    #         """Masukkan kelas anda:
             
-            *Format :*
-            Kelas [kelas anda]"""
-        )
-        responded = True
+    #         *Format :*
+    #         Kelas [kelas anda]"""
+    #     )
+    #     responded = True
 
-    if 'kelas' in words:
-        set_kelas(" ".join(words[1:]))
-        msg.body(
-            """Masukkan tujuan anda:
+    # if 'kelas' in words:
+    #     set_kelas(" ".join(words[1:]))
+    #     msg.body(
+    #         """Masukkan tujuan anda:
             
-            *Format :*
-            Tujuan [nama anda]"""
-        )
-        responded = True
+    #         *Format :*
+    #         Tujuan [nama anda]"""
+    #     )
+    #     responded = True
 
-    if 'tujuan' in words:
-        set_tujuan(" ".join(words[1:]))
-        msg.body(
-            """Masukkan pertanyaan anda:
+    # if 'tujuan' in words:
+    #     set_tujuan(" ".join(words[1:]))
+    #     msg.body(
+    #         """Masukkan pertanyaan anda:
             
-            *Format :*
-            Tanya [nama anda]"""
-        )
-        responded = True
+    #         *Format :*
+    #         Tanya [nama anda]"""
+    #     )
+    #     responded = True
 
-    if 'tanya' in words:
-        set_pertanyaan(" ".join(words[1:]))
-        msg.body(
-            f"""Assalamu'alaikum Wr. Wb
-            Saya {msg_info['nama']} absen {msg_info['absen']} dari kelas {msg_info['kelas']}. Saya ingin {msg_info['tujuan']}. {msg_info['pertanyaan']}.
+    # if 'tanya' in words:
+    #     set_pertanyaan(" ".join(words[1:]))
+    #     msg.body(
+    #         f"""Assalamu'alaikum Wr. Wb
+    #         Saya {msg_info['nama']} absen {msg_info['absen']} dari kelas {msg_info['kelas']}. Saya ingin {msg_info['tujuan']}. {msg_info['pertanyaan']}.
             
-            Terima Kasih sebelumnya pak"""
-        )
-        responded = True
+    #         Terima Kasih sebelumnya pak"""
+    #     )
+    #     responded = True
 
-    if "tanya guru" in incoming_msg:
-        msg.body("Pilih salah satu guru berikut:\n"\
-            "\n".join(list_guru)
-        )
-        responded = True
+    # if "tanya guru" in incoming_msg:
+    #     msg.body("Pilih salah satu guru berikut:\n"\
+    #         "\n".join(list_guru)
+    #     )
+    #     responded = True
 
-    if incoming_msg in list_guru:
-        msg.body("Tulis pertanyaan anda dalam format berikut\n"\
-            "*Tanya @* pertanyaan...")
-        responded = True
+    # if incoming_msg in list_guru:
+    #     msg.body("Tulis pertanyaan anda dalam format berikut\n"\
+    #         "*Tanya @* pertanyaan...")
+    #     responded = True
 
 
 
