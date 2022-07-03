@@ -22,6 +22,12 @@ client = Client(
     os.environ['TWILIO_AUTH_TOKEN']
 )
 
+idx = None
+name = ''
+kelas = ''
+message = ''
+
+
 @app.route('/mybot', methods = ['POST'])
 
 def mybot():
@@ -42,42 +48,96 @@ def mybot():
     incoming_msg = str(incoming_msg).lower() 
     words = incoming_msg.split()
 
-
-    # message = client.messages.create(
-    #     body='This is a message that I want to send over WhatsApp with Twilio!',
-    #     from_='whatsapp:+14155238886',
-    #     to='whatsapp:+6283856854057'
-    # )
-
-    # msg.body(message)
-
     if 'hi' in incoming_msg:
         out_list_guru = ""
         for (idx, guru) in enumerate(list_guru['nama']):
             out_list_guru += f"{idx+1}. {guru}\n"
 
         msg.body(
-            f"""Halo, Aku edu-bot
-            
-            Daftar guru:
-            {out_list_guru}
+        f"""
+        Halo, Aku edu-bot
+        
+        Daftar guru:
+        {out_list_guru}
 
-            Pilih salah satu guru dengan mengetikkan nama atau no pada pilihan
-            """
+        Pilih salah satu guru dengan mengetikkan nama atau no pada pilihan
+        """
         )
         responded = True
     
-    if 'pilih' in incoming_msg:
-        idx = int(words[1]) - 1
+    elif 'pilih' in incoming_msg:
+        if len(words) == 1:
+            msg.body("Masukkan angka dengan benar!!!")
+        elif words[1].isnumeric():      
+            idx = int(words[1]) - 1
+            
+            if idx >= len(list_guru['nama']):
+                msg.body("Pilihan anda tidak sesuai!!!")
+            else:
+                msg.body(
+                    f"""
+                    Masukkan nama anda:
+                    
+                    *Format :*
+                    nama [nama anda]"""
+                )
+        else:
+            msg.body("Masukkan angka dengan benar!!!")
 
-        msg.body(f"{incoming_msg}\n{len(words)}")
+        responded = True
+    
+    elif 'nama' in incoming_msg:
+        if len(words) == 1:
+            msg.body("Masukkan nama dengan benar!!!")
+        else:
+            msg.body(
+                f"""
+                Masukkan kelas anda :
 
-        message = client.messages.create(
-            body='This is a message that I want to send over WhatsApp with Twilio!',
-            from_='whatsapp:+14155238886',
-            to=f'whatsapp:{list_guru["nomor"][idx]}'
-        )
+                *Format :*
+                Kelas [kelas anda]
+                """
+            )
+            name = " ".join(words[1:]).capitalize()
+    
+        responded = True
+    
+    elif 'kelas' in incoming_msg:
+        if len(words) == 1:
+            msg.body("Masukkan kelas dengan benar!!!")
+        else:
+            msg.body(
+                f"""
+                Masukkan pesan anda :
 
+                *Format :*
+                Pesan [pesan anda]
+                """
+            )
+
+            kelas = words[1:]
+        
+        responded = True
+
+    elif 'pesan' in incoming_msg:
+        if len(words) == 1:
+            msg.body("Masukkan pesan dengan benar!!!")
+        
+        else:
+            message_body = f"""
+            Dari\t: {name}
+            Kelas\t: {kelas}
+
+            Pesan:
+            {message}
+            """
+            message = client.messages.create(
+                body=message_body,
+                from_='whatsapp:+14155238886',
+                to=f'whatsapp:{list_guru["nomor"][idx]}'
+            )
+            msg.body("Pesan berhasil terkirim")
+        
         responded = True
 
     # Code untuk membuat pengingat
@@ -85,7 +145,7 @@ def mybot():
 
         msg.body(
             "Masukkan tanggal!!\n\n"\
-            "*Format : *\n"\
+            "*Format :* \n"\
             "\"Tanggal dd/mm/yyyy\""
         )
 
@@ -229,21 +289,21 @@ def mybot():
     
     return str(resp)
 
-def set_reminder_date(msg):
-    p = parse(msg)
-    date = p.strftime('%d/%m/%Y')
-    save_reminder_date(date)
-    return 0
+# def set_reminder_date(msg):
+#     p = parse(msg)
+#     date = p.strftime('%d/%m/%Y')
+#     save_reminder_date(date)
+#     return 0
 
-def set_reminder_time(msg):
-    p = parse(msg)
-    time = p.strftime('%d/%m/%Y')
-    save_reminder_time(time)
-    return 0
+# def set_reminder_time(msg):
+#     p = parse(msg)
+#     time = p.strftime('%d/%m/%Y')
+#     save_reminder_time(time)
+#     return 0
 
-def set_reminder_body(msg):
-    save_reminder_body(msg)
-    return 0
+# def set_reminder_body(msg):
+#     save_reminder_body(msg)
+#     return 0
 
 if __name__ == "__main__":
     app.run(debug=True)
