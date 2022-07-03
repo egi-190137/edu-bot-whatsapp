@@ -10,7 +10,7 @@ from twilio.rest import Client
 # from validation_func import *
 # from pandas import read_csv
 
-from gsheet_func import list_guru
+from gsheet_func import list_guru, getRandomQuote
 # from message_func import *
 from get_message_info import *
 
@@ -44,32 +44,33 @@ def mybot():
     if 'hi' in incoming_msg:
 
         msg.body(
-        f"""
-        Halo, Aku edu-bot
-        
-        Ada yang bisa saya bantu:
-        1. Chat guru
-        2. Quote motivasi
+f"""Halo, Aku edu-bot
 
-        *Input :* */chat* atau */quote* 
-        """
+Ada yang bisa saya bantu:
+1. Chat guru
+2. Quote motivasi
+
+*Input :* */chat* atau */quote*"""
         )
         responded = True
-    
-    elif incoming_msg == '/chat':
+
+    elif '/quote' in incoming_msg: 
+        msg.body(f'_{getRandomQuote()}_')
+
+        responded = True
+        
+    elif '/chat' in incoming_msg:
         out_list_guru = ""
         for (idx, guru) in enumerate(list_guru['nama']):
             out_list_guru += f"{idx+1}. {guru}\n"
         
         msg.body(
-        f"""
-        Halo, Aku edu-bot
-                
-        Daftar guru:
-        {out_list_guru}
+f"""Halo, Aku edu-bot
+        
+Daftar guru:
+{out_list_guru}
 
-        *Format :* Pilih [angka]
-        """
+*Format :* Pilih [angka]"""
         )
         responded = True
 
@@ -83,12 +84,11 @@ def mybot():
                 msg.body("Pilihan anda tidak sesuai!!!")
             else:
                 msg.body(
-                    f"""
-                    Masukkan nama anda:
-                    
-                    *Format :*
-                    
-                    nama [nama anda]"""
+f"""Masukkan nama anda:
+
+*Format :*
+
+nama [nama anda]"""
                 )
                 addData('idx', int(words[1]) - 1)
 
@@ -103,12 +103,11 @@ def mybot():
             msg.body("Masukkan nama dengan benar!!!")
         else:
             msg.body(
-                f"""
-                Masukkan kelas anda :
+f"""
+Masukkan kelas anda :
 
-                *Format :*
-                Kelas [kelas anda]
-                """
+*Format :*
+Kelas [kelas anda]"""
             )
             addData('nama', ' '.join(words[1:]).capitalize())
     
@@ -119,12 +118,11 @@ def mybot():
             msg.body("Masukkan kelas dengan benar!!!")
         else:
             msg.body(
-                f"""
-                Masukkan pesan anda :
+f"""
+Masukkan pesan anda :
 
-                *Format :*
-                Pesan [pesan anda]
-                """
+*Format :*
+Pesan [pesan anda]"""
             )
 
             addData('kelas', ' '.join(words[1:]).capitalize())
@@ -141,13 +139,12 @@ def mybot():
             message_info = getDictAllData()
             
             idx_no_tujuan = int(message_info['idx'][-1])
-            message_body = f"""
-            Dari\t: {message_info['nama'][-1]}
-            Kelas\t: {message_info['kelas'][-1]}
+            message_body = f"""Dari\t: {message_info['nama'][-1]}
+Kelas\t: {message_info['kelas'][-1]}
 
-            Pesan:
-            {message_info['pesan'][-1]}
-            """
+Pesan:
+{message_info['pesan'][-1]}"""
+
             message = client.messages.create(
                 body=message_body,
                 from_='whatsapp:+14155238886',

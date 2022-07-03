@@ -19,8 +19,8 @@ list_guru = {
     'nomor': [ f'+{no}' for no in contacts.col_values(2) ]
 }
 
-# quotes = quotes.col_values(1)
+quotes = quotes.col_values(1)
 
-# def getRandomQuote():
-#     idx = random.randint(0, len(quotes) - 1)
-#     return quotes[idx]
+def getRandomQuote():
+    idx = random.randint(0, len(quotes) - 1)
+    return quotes[idx]
