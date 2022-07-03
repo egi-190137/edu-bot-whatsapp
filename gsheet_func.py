@@ -1,35 +1,26 @@
+import random
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
-s = [
+scope = [
     'https://www.googleapis.com/auth/spreadsheets',
     'https://www.googleapis.com/auth/drive'
 ]
 
-creds  = ServiceAccountCredentials.from_json_keyfile_name("credentials.json",s)
+creds  = ServiceAccountCredentials.from_json_keyfile_name("credentials.json", scope)
 client = gspread.authorize(creds)
 
-sheet  = client.open("chatbot_reminders").sheet1
+contacts = client.open("chatbot_data").worksheet("contacts")
+# quotes = client.open("chatbot_data").worksheet("quotes")
+# messages = client.open("chatbot_data").worksheet("quotes")
 
-col_values = sheet.col_values(1)
-row_filled = len(col_values)
+list_guru = {
+    'nama': contacts.col_values(1),
+    'nomor': [ f'+{no}' for no in contacts.col_values(2) ]
+}
 
-    
-def save_reminder_date(date):
+# quotes = quotes.col_values(1)
 
-    sheet.update_cell(row_filled+1, 1, date)
-    print("saved date!")
-    return 0
-
-def save_reminder_time(time):
-
-    sheet.update_cell(row_filled+1, 2, time)
-    print("saved time!")
-    return 0
-    
-def save_reminder_body(msg):
-
-    sheet.update_cell(row_filled+1, 3, msg)
-    print("saved reminder message!")
-    return 0
-
+# def getRandomQuote():
+#     idx = random.randint(0, len(quotes) - 1)
+#     return quotes[idx]

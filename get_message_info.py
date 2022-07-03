@@ -12,11 +12,9 @@ def addData(key, data):
     if dictData['idx'] != []:
         for col in dictData.keys():
             if isnull(dictData[col][-1]):
-                print('iya')
                 isLastNull = True
                 break
     
-    print(isLastNull)
     # Jika ada nilai null
     if isLastNull:
         dictData[key][-1] = data
@@ -28,7 +26,5 @@ def addData(key, data):
                 dictData[col].append(data)
             else:
                 dictData[col].append(nan)
-    
-    print(dictData)
-    
+        
     DataFrame(dictData).to_csv('message_info.csv', index=False)
