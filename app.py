@@ -44,7 +44,7 @@ def mybot():
     if 'hi' in incoming_msg:
 
         msg.body(
-f"""Halo, Aku edu-bot
+f"""Halo, Aku edu-bot🤖
 
 Ada yang bisa saya bantu:
 1. Chat guru
@@ -58,7 +58,7 @@ Ada yang bisa saya bantu:
         msg.body(f'_{getRandomQuote()}_')
 
         responded = True
-        
+
     elif '/chat' in incoming_msg:
         out_list_guru = ""
         for (idx, guru) in enumerate(list_guru['nama']):
