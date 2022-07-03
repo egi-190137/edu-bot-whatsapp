@@ -1,4 +1,6 @@
 import os
+
+from zmq import Message
 from flask import Flask, request
 import requests
 from twilio.twiml.messaging_response import MessagingResponse
@@ -81,8 +83,10 @@ def mybot():
                     Masukkan nama anda:
                     
                     *Format :*
+                    
                     nama [nama anda]"""
                 )
+                MessageInfo.setIdx(idx)
         else:
             msg.body("Masukkan angka dengan benar!!!")
 
@@ -100,7 +104,7 @@ def mybot():
                 Kelas [kelas anda]
                 """
             )
-            name = " ".join(words[1:]).capitalize()
+            MessageInfo.setNama(" ".join(words[1:]).capitalize())
     
         responded = True
     
@@ -117,7 +121,7 @@ def mybot():
                 """
             )
 
-            kelas = words[1:]
+            MessageInfo.setKelas(" ".join(words[1:]))
         
         responded = True
 
@@ -127,16 +131,16 @@ def mybot():
         
         else:
             message_body = f"""
-            Dari\t: {name}
-            Kelas\t: {kelas}
+            Dari\t: {MessageInfo.getNama()}
+            Kelas\t: {MessageInfo.getKelas()}
 
             Pesan:
-            {message}
+            {MessageInfo.getPesan()}
             """
             message = client.messages.create(
                 body=message_body,
                 from_='whatsapp:+14155238886',
-                to=f'whatsapp:{list_guru["nomor"][idx]}'
+                to=f'whatsapp:{list_guru["nomor"][MessageInfo.getIdx()]}'
             )
             msg.body("Pesan berhasil terkirim")
         
