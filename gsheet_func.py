@@ -21,5 +21,5 @@ list_guru = {
 array_quotes = quotes.col_values(1)
 
 def getRandomQuote():
-    idx = random.randint(0, len(quotes) - 1)
-    return quotes[idx]
+    idx = random.randint(0, len(array_quotes) - 1)
+    return array_quotes[idx]
